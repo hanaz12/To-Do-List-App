@@ -1,0 +1,82 @@
+.contact{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+.contact-logo{
+    display: flex;
+    align-items: center;
+    gap: 0px;
+}
+.contact-logo p{
+    color: #383838;
+    font-size: 46px;
+    font-weight: 700;
+}
+.contact-links{
+    display: flex;
+    list-style: none;
+    gap: 50px;
+    color: #252525;
+    font-size: 20px;
+}
+.contact-links li{
+    cursor: pointer;
+}
+.contact-social-icon{
+    display: flex;
+    gap: 20px;
+}
+.contact-icons-container{
+    padding: 10px;
+    padding-bottom: 6px;
+    background: #fbfbfb;
+    border: 1px solid #ebebeb;
+}
+.contact-copyright{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    margin-bottom: 30px;
+    color: #1a1a1a;
+    font-size: 20px;
+}
+.contact-copyright hr{
+    width: 80%;
+    border: none;
+    border-radius: 10px;
+    height: 3px;
+    background: #c7c7c7;
+}
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .about-title {
+    color: #451e02;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .about-content {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.6;
+    color: #451e02;
+  }
+  
+body {
+    background-image: url('../icons/Assets/bg3.jpg');
+    background-size: cover; /* Cover the entire background */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
+}
+.cartt{
+    color: #451e02;
+}

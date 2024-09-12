@@ -1,0 +1,9 @@
+.navbar-nav a{
+   font-size: 18px;
+}
+.buttons a {
+  margin-right: 10px;
+}
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
