@@ -25,11 +25,12 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model('User', UserSchema);
 
 // Define Task schema
-const TaskSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+const taskSchema = new mongoose.Schema({
     task: { type: String, required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    status: { type: Boolean, default: false }
 });
-const Task = mongoose.model('Task', TaskSchema);
+const Task = mongoose.model('Task', taskSchema);
 
 const app = express();
 
@@ -98,8 +99,11 @@ app.get('/home', async (req, res) => {
     try {
         const user = await User.findById(req.session.userId).lean();
         if (!user) return res.status(404).send('User not found');
-        const tasks = await Task.find({ userId: req.session.userId }).lean();
-        res.render('home', { tasks, username: user.username });
+        
+        const notDoneTasks = await Task.find({ userId: req.session.userId, status: false }).lean();
+        const doneTasks = await Task.find({ userId: req.session.userId, status: true }).lean();
+        
+        res.render('home', { notDoneTasks, doneTasks, username: user.username });
     } catch (error) {
         res.status(500).send('Error fetching tasks: ' + error.message);
     }
@@ -108,7 +112,8 @@ app.get('/home', async (req, res) => {
 app.post('/add-task', async (req, res) => {
     if (!req.session.userId) return res.redirect('/');
     try {
-        await Task.create({ userId: req.session.userId, task: req.body.task });
+        const { task } = req.body;
+        await Task.create({ task, userId: req.session.userId });
         res.redirect('/home');
     } catch (error) {
         res.status(500).send('Error adding task: ' + error.message);
@@ -136,6 +141,22 @@ app.post('/update-task', async (req, res) => {
         res.redirect('/home');
     } catch (error) {
         res.status(500).send('Error updating task: ' + error.message);
+    }
+});
+
+app.post('/toggle-task-status', async (req, res) => {
+    if (!req.session.userId) return res.redirect('/');
+    try {
+        const { taskId } = req.body;
+        const task = await Task.findById(taskId);
+        if (!task || task.userId.toString() !== req.session.userId) {
+            return res.status(404).send('Task not found');
+        }
+        task.status = !task.status;
+        await task.save();
+        res.redirect('/home');
+    } catch (error) {
+        res.status(500).send('Error toggling task status: ' + error.message);
     }
 });
 

@@ -90,11 +90,7 @@ h2 {
     border-bottom: none;
 }
 
-.modal-header:hover {
-    background-color: #c8c9e2;
-    color: #fff;
-    border-bottom: none;
-}
+
 
 .modal-title {
     font-weight: bold;
@@ -102,6 +98,12 @@ h2 {
 
 .btn-close {
     filter: invert(1);
+}
+
+/* Tasks */
+.list-group-item.done span {
+    text-decoration: line-through;
+    color: #888;
 }
 
 /* Alerts */
@@ -118,7 +120,7 @@ a {
     font-weight: bold;
 }
 
-a:hover {
-    color: #2980b9;
+a:hover, a:active {
+    color: #8083e0;
     text-decoration: underline;
 }
